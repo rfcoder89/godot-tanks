@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://h22sn5s85cd1"]
+
+[ext_resource type="PackedScene" uid="uid://c8ycqhnj43fnx" path="res://models.blend" id="1_dfkc6"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="1_pimng"]
+
+[node name="FirstScene" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999973, -0.00729541, 0, 0.00729541, 0.999973, 0, 0, 0, 1, -2.30468, 0, 0)
+script = ExtResource("1_pimng")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="models" parent="." instance=ExtResource("1_dfkc6")]
+transform = Transform3D(0.384346, 0, 0, 0, 0.384346, 0, 0, 0, 0.384346, 0.0328324, 0.0429769, -5.37838)
