@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c8ycqhnj43fnx"
-path="res://.godot/imported/models.blend-acd756ba71ceba78c96fb895e17a4e5f.scn"
+uid="uid://dyibhvx8ig33s"
+path="res://.godot/imported/tanks.blend-3f1036d49d6557d7e706f9e570007e40.scn"
 
 [deps]
 
-source_file="res://models.blend"
-dest_files=["res://.godot/imported/models.blend-acd756ba71ceba78c96fb895e17a4e5f.scn"]
+source_file="res://Tanks/tanks.blend"
+dest_files=["res://.godot/imported/tanks.blend-3f1036d49d6557d7e706f9e570007e40.scn"]
 
 [params]
 
@@ -33,14 +33,23 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "meshes": {
-"models_Cube": {
+"tanks_BodyMesh": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": ""
+"save_to_file/path": "res://Tanks/Meshes/tanks_BodyMesh.res"
+},
+"tanks_TurretMesh": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://Tanks/Meshes/tanks_TurretMesh.res"
 }
 }
 }

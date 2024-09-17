@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://h22sn5s85cd1"]
 
-[ext_resource type="PackedScene" uid="uid://c8ycqhnj43fnx" path="res://models.blend" id="1_dfkc6"]
 [ext_resource type="Script" path="res://camera_3d.gd" id="1_pimng"]
+[ext_resource type="PackedScene" uid="uid://cs4sbcalr2yg4" path="res://Tanks/PlayerTank.tscn" id="2_rnyyj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i62m4"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -29,5 +29,5 @@ shadow_enabled = true
 transform = Transform3D(-0.739059, 0.00539188, 0.673619, 0.00729541, 0.999973, -4.36331e-10, -0.673601, 0.00491433, -0.739079, 2.75701, -0.100065, -9.86608)
 script = ExtResource("1_pimng")
 
-[node name="models" parent="." instance=ExtResource("1_dfkc6")]
-transform = Transform3D(0.544206, 0.670932, 1.30725, -1.96417, 0.146767, 0.381899, 0.0564546, -1.36124, 0.685498, -2.99934, 2.1706, -3.86932)
+[node name="PlayerTank" parent="." instance=ExtResource("2_rnyyj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.490011, 0, 0.01647)

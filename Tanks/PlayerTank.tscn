@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs4sbcalr2yg4"]
+
+[ext_resource type="ArrayMesh" uid="uid://bux4fgtqr0te6" path="res://Tanks/Meshes/tanks_BodyMesh.res" id="1_hoelg"]
+[ext_resource type="Script" path="res://Tanks/player_tank.gd" id="1_mvph8"]
+[ext_resource type="ArrayMesh" uid="uid://b33vkv7fbe2pw" path="res://Tanks/Meshes/tanks_TurretMesh.res" id="2_0bosj"]
+
+[node name="PlayerTank" type="Node3D"]
+script = ExtResource("1_mvph8")
+
+[node name="TanksBodyMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_hoelg")
+
+[node name="TanksTurretMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_0bosj")
