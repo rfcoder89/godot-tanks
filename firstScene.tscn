@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://h22sn5s85cd1"]
+[gd_scene load_steps=5 format=3 uid="uid://h22sn5s85cd1"]
 
-[ext_resource type="Script" path="res://camera_3d.gd" id="1_pimng"]
 [ext_resource type="PackedScene" uid="uid://cs4sbcalr2yg4" path="res://Tanks/PlayerTank.tscn" id="2_rnyyj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i62m4"]
@@ -26,8 +25,8 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.739059, 0.00539188, 0.673619, 0.00729541, 0.999973, -4.36331e-10, -0.673601, 0.00491433, -0.739079, 2.75701, -0.100065, -9.86608)
-script = ExtResource("1_pimng")
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
-[node name="PlayerTank" parent="." instance=ExtResource("2_rnyyj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.490011, 0, 0.01647)
+[node name="PlayerTank" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_rnyyj")]
+camera = NodePath("../Camera3D")
+control = true

@@ -8,7 +8,7 @@
 script = ExtResource("1_mvph8")
 
 [node name="CameraAnchor" type="Node3D" parent="."]
-transform = Transform3D(0.702107, -0.69926, 0.134463, 0.627938, 0.518971, -0.579969, 0.335767, 0.491635, 0.803465, 6.03203, 2.41391, -0.021296)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Tank" type="Node3D" parent="."]
 
