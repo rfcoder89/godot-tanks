@@ -22,16 +22,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		mouseInput += event.xformed_by(viewport_transform).relative
 
 func _physics_process(delta: float) -> void:
+	var localDir = ($RigidBody3D.basis * Vector3(1, 0, 0)).normalized()
 	if moveDir == 0:
-		var lv = $RigidBody3D.linear_velocity.length()
-		var brakeForce : Vector3 = Vector3(lv * 0.4, 0, 0) * Vector3(1, 0, 0).dot($RigidBody3D.linear_velocity) * -0.4;
-		$RigidBody3D.add_constant_central_force(brakeForce)
+		var lv = $RigidBody3D.linear_velocity
+		$RigidBody3D.linear_velocity *= 0.8
+		$RigidBody3D.constant_force = Vector3.ZERO
+		#var brakeForce : Vector3 = lv * -0.3;
+		#brakeForce.y = 0;
+		#$RigidBody3D.add_constant_central_force(brakeForce)
 	else:
 		var maxSpeed = 6;
+		print($RigidBody3D.linear_velocity)
 		if $RigidBody3D.linear_velocity.length() < maxSpeed:
-			$RigidBody3D.add_constant_central_force(Vector3(0.8 * moveDir, 0, 0))
+			$RigidBody3D.constant_force = localDir * 30.8 * moveDir
 		else:
 			$RigidBody3D.linear_velocity = $RigidBody3D.linear_velocity.limit_length(maxSpeed)
+			$RigidBody3D.constant_force = Vector3.ZERO
 			
 	if rotateDir == 0:
 		$RigidBody3D.angular_velocity *= 0.8
