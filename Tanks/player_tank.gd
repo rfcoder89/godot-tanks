@@ -4,6 +4,7 @@ extends Node3D
 @export var control : bool = false;
 
 var moveDir : int = 0
+var rotateDir: int = 0
 
 var cameraDistance : float = 2;
 var cameraYAngle : float = 0;
@@ -25,13 +26,28 @@ func _physics_process(delta: float) -> void:
 		var lv = $RigidBody3D.linear_velocity.length()
 		var brakeForce : Vector3 = Vector3(lv * 0.4, 0, 0) * Vector3(1, 0, 0).dot($RigidBody3D.linear_velocity) * -0.4;
 		$RigidBody3D.add_constant_central_force(brakeForce)
-		return
-	
-	var maxSpeed = 6;
-	if $RigidBody3D.linear_velocity.length() < maxSpeed:
-		$RigidBody3D.add_constant_central_force(Vector3(0.8 * moveDir, 0, 0))
 	else:
-		$RigidBody3D.linear_velocity = $RigidBody3D.linear_velocity.limit_length(maxSpeed)
+		var maxSpeed = 6;
+		if $RigidBody3D.linear_velocity.length() < maxSpeed:
+			$RigidBody3D.add_constant_central_force(Vector3(0.8 * moveDir, 0, 0))
+		else:
+			$RigidBody3D.linear_velocity = $RigidBody3D.linear_velocity.limit_length(maxSpeed)
+			
+	if rotateDir == 0:
+		$RigidBody3D.angular_velocity *= 0.8
+		$RigidBody3D.constant_torque = Vector3.ZERO
+	else:
+		#print($RigidBody3D.angular_velocity)
+		var maxSpeed = 6;
+		if abs($RigidBody3D.angular_velocity.y) < maxSpeed:
+			$RigidBody3D.constant_torque = Vector3(0, 20.8 * -rotateDir, 0)
+			print($RigidBody3D.constant_torque)
+		else:
+			$RigidBody3D.angular_velocity = Vector3(
+				$RigidBody3D.angular_velocity.x,
+				max(-maxSpeed, min(maxSpeed, $RigidBody3D.angular_velocity.y)),
+				$RigidBody3D.angular_velocity.z
+			)	
 
 func _process(delta: float) -> void:
 	if !control:
@@ -60,3 +76,10 @@ func _process(delta: float) -> void:
 		moveDir = -1
 	else:
 		moveDir = 0
+		
+	if Input.is_action_pressed("Rotate right"):
+		rotateDir = 1
+	elif Input.is_action_pressed("Rotate left"):
+		rotateDir = -1
+	else:
+		rotateDir = 0
