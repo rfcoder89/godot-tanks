@@ -13,7 +13,7 @@ var cameraXAngle : float = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -29,7 +29,6 @@ func _process(delta: float) -> void:
 		camera.reparent($CameraAnchor)
 		camera.transform.origin = Vector3.ZERO
 		
-	# print(mouseInput)
 	cameraYAngle += mouseInput.x * delta * 0.3
 	while cameraYAngle < 0:	  cameraYAngle += TAU
 	while cameraYAngle > TAU: cameraYAngle -= TAU
