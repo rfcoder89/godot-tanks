@@ -16,14 +16,13 @@ func _process(delta: float) -> void:
 		return
 		
 	if camera.get_parent() != $CameraAnchor:
-
 		print(camera.transform.origin)
 		camera.reparent($CameraAnchor)
 		camera.transform.origin = Vector3.ZERO
 		print(camera.transform.origin)
 		# camera.transform.origin = Vector3.ZERO
 		
-	#$CameraAnchor.look_at($Tank.transform.origin)
+	$CameraAnchor.look_at($Tank/CameraTarget.transform.origin)
 	
 	if (Input.is_action_pressed("Move forward") and !moveForwards):
 		moveForwards = true
