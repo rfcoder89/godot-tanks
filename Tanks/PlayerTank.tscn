@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cs4sbcalr2yg4"]
+[gd_scene load_steps=6 format=3 uid="uid://cs4sbcalr2yg4"]
 
 [ext_resource type="ArrayMesh" uid="uid://bux4fgtqr0te6" path="res://Tanks/Meshes/tanks_BodyMesh.res" id="1_hoelg"]
 [ext_resource type="Script" path="res://Tanks/player_tank.gd" id="1_mvph8"]
 [ext_resource type="ArrayMesh" uid="uid://b33vkv7fbe2pw" path="res://Tanks/Meshes/tanks_TurretMesh.res" id="2_0bosj"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_roebj"]
+rough = true
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hf57o"]
+points = PackedVector3Array(-1.64217, 0.218827, -0.873161, -1.64217, 0.858414, -0.873161, -1.42356, 0, -0.873161, -1.46149, 0.00323739, -0.866494, -1.49846, 0.0131519, -0.846323, -1.53286, 0.0292377, -0.813674, -1.56405, 0.0511912, -0.769058, -1.59105, 0.078102, -0.714187, -1.61291, 0.109363, -0.650597, -1.62899, 0.143963, -0.580341, -1.63895, 0.180788, -0.505298, -1.64217, 0.218827, 0.873161, -1.64217, 0.858414, 0.873161, -0.547497, 1.03354, -0.873161, -1.42356, 0, 0.873161, 1.40395, 0, -0.873161, -1.46149, 0.00323739, 0.584614, -1.49846, 0.0131519, 0.643417, -1.53286, 0.0292377, 0.69846, -1.56405, 0.0511912, 0.748375, -1.59105, 0.078102, 0.791451, -1.61291, 0.109363, 0.826323, -1.62899, 0.143963, 0.851964, -1.63895, 0.180788, 0.867691, -0.547497, 1.03354, 0.873161, 0.547175, 1.03354, -0.873161, 1.40395, 0, 0.873161, 1.64217, 0.237847, -0.873161, 1.63831, 0.19657, -0.86752, 1.6277, 0.156508, -0.850426, 1.61002, 0.118873, -0.822391, 1.58623, 0.0849815, -0.784443, 1.55697, 0.0556426, -0.737605, 1.5229, 0.031868, -0.683417, 1.4856, 0.0142647, -0.623588, 1.44542, 0.00354089, -0.559657, 0.547175, 1.03354, 0.873161, 1.64217, 0.858414, -0.873161, 1.44542, 0.00354089, 0.865639, 1.64217, 0.237847, 0.873161, 1.63831, 0.19657, 0.473161, 1.6277, 0.156508, 0.5547, 1.61002, 0.118873, 0.63111, 1.58623, 0.0849815, 0.70017, 1.55697, 0.0556426, 0.759827, 1.5229, 0.031868, 0.808203, 1.4856, 0.0142647, 0.84393, 1.64217, 0.858414, 0.873161)
 
 [node name="PlayerTank" type="Node3D"]
 script = ExtResource("1_mvph8")
@@ -10,15 +16,24 @@ script = ExtResource("1_mvph8")
 [node name="CameraAnchor" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.032, 2.5, 0)
 
-[node name="Tank" type="Node3D" parent="."]
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_roebj")
 
-[node name="CameraTarget" type="Node3D" parent="Tank"]
+[node name="Tank" type="Node3D" parent="RigidBody3D"]
+
+[node name="CameraTarget" type="Node3D" parent="RigidBody3D/Tank"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="TanksBodyMesh" type="MeshInstance3D" parent="Tank"]
+[node name="TanksBodyMesh" type="MeshInstance3D" parent="RigidBody3D/Tank"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("1_hoelg")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="TanksTurretMesh" type="MeshInstance3D" parent="Tank"]
+[node name="TanksTurretMesh" type="MeshInstance3D" parent="RigidBody3D/Tank"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("2_0bosj")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_hf57o")

@@ -33,6 +33,15 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "meshes": {
+"tanks_BodyColMesh": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://Tanks/Meshes/tanks_BodyColMesh.res"
+},
 "tanks_BodyMesh": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
@@ -41,6 +50,15 @@ _subresources={
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
 "save_to_file/path": "res://Tanks/Meshes/tanks_BodyMesh.res"
+},
+"tanks_Plane": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://Tanks/Meshes/tanks_Plane.res"
 },
 "tanks_TurretMesh": {
 "generate/lightmap_uv": 0,

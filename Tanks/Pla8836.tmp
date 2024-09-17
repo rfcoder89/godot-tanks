@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs4sbcalr2yg4"]
+
+[ext_resource type="ArrayMesh" uid="uid://bux4fgtqr0te6" path="res://Tanks/Meshes/tanks_BodyMesh.res" id="1_hoelg"]
+[ext_resource type="Script" path="res://Tanks/player_tank.gd" id="1_mvph8"]
+[ext_resource type="ArrayMesh" uid="uid://b33vkv7fbe2pw" path="res://Tanks/Meshes/tanks_TurretMesh.res" id="2_0bosj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8jynv"]
+size = Vector3(2, 2, 2)
+
+[node name="PlayerTank" type="Node3D"]
+script = ExtResource("1_mvph8")
+control = null
+mouseInput = null
+
+[node name="CameraAnchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.032, 2.5, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="Tank" type="Node3D" parent="RigidBody3D"]
+
+[node name="CameraTarget" type="Node3D" parent="RigidBody3D/Tank"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="TanksBodyMesh" type="MeshInstance3D" parent="RigidBody3D/Tank"]
+mesh = ExtResource("1_hoelg")
+skeleton = NodePath("../../..")
+
+[node name="TanksTurretMesh" type="MeshInstance3D" parent="RigidBody3D/Tank"]
+mesh = ExtResource("2_0bosj")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0244882, 0.406287, 0)
+shape = SubResource("BoxShape3D_8jynv")

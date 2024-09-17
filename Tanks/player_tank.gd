@@ -2,16 +2,16 @@ extends Node3D
 
 @export var camera : Camera3D = null
 @export var control : bool = false;
-var moveForwards : bool = false
-var moveBackwards : bool = false
+
+var moveDir : int = 0
 
 var cameraDistance : float = 2;
 var cameraYAngle : float = 0;
-var cameraXAngle : float = 0;
+var turretAngle : float = 0;
 
+@onready var cameraAnchor : Node3D = $CameraAnchor
 @export var mouseInput : Vector2
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -20,39 +20,43 @@ func _unhandled_input(event: InputEvent) -> void:
 		var viewport_transform: Transform2D = get_tree().root.get_final_transform()
 		mouseInput += event.xformed_by(viewport_transform).relative
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	if moveDir == 0:
+		var lv = $RigidBody3D.linear_velocity.length()
+		var brakeForce : Vector3 = Vector3(lv * 0.4, 0, 0) * Vector3(1, 0, 0).dot($RigidBody3D.linear_velocity) * -0.4;
+		$RigidBody3D.add_constant_central_force(brakeForce)
+		return
+	
+	var maxSpeed = 6;
+	if $RigidBody3D.linear_velocity.length() < maxSpeed:
+		$RigidBody3D.add_constant_central_force(Vector3(0.8 * moveDir, 0, 0))
+	else:
+		$RigidBody3D.linear_velocity = $RigidBody3D.linear_velocity.limit_length(maxSpeed)
+
 func _process(delta: float) -> void:
 	if !control:
 		return
 		
-	if camera.get_parent() != $CameraAnchor:
-		camera.reparent($CameraAnchor)
+	if camera.get_parent() != cameraAnchor:
+		camera.reparent(cameraAnchor)
 		camera.transform.origin = Vector3.ZERO
 		
 	cameraYAngle += mouseInput.x * delta * 0.3
 	while cameraYAngle < 0:	  cameraYAngle += TAU
 	while cameraYAngle > TAU: cameraYAngle -= TAU
-	
 	mouseInput = Vector2.ZERO
 	
-	#$CameraAnchor.transform.origin = Vector3(-1, 0, 0)
 	var cat : Transform3D = Transform3D()  # camera anchor transform
-	cat = cat.translated(Vector3(6, 2.5, 0))
+	cat = cat.translated(Vector3(7, 2.5, 0))
 	cat = cat.rotated(Vector3(0, 1, 0), -cameraYAngle)
-	$CameraAnchor.transform.origin = cat.origin
-	$CameraAnchor.look_at(to_global(Vector3(0, 2, 0)))
+	cat = cat.translated($RigidBody3D.transform.origin)
 	
-	if (Input.is_action_pressed("Move forward") and !moveForwards):
-		moveForwards = true
-		moveBackwards = false;
-		
-	if (Input.is_action_pressed("Move backwards") and !moveBackwards):
-		moveForwards = false
-		moveBackwards = true;		
-
-	if moveForwards:
-		self.transform.origin += Vector3(0.3, 0, 0)
+	cameraAnchor.transform.origin = cat.origin
+	cameraAnchor.look_at($RigidBody3D.transform.origin + Vector3(0, 2, 0))
+	
+	if Input.is_action_pressed("Move forward"):
+		moveDir = 1
+	elif Input.is_action_pressed("Move backwards"):
+		moveDir = -1
 	else:
-		if moveBackwards:
-			self.transform.origin -= Vector3(0.3, 0, 0) 
-	
+		moveDir = 0
