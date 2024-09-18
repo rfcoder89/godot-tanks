@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://sl53atj5ix0k"]
+
+[node name="TankShot" type="Node3D"]
